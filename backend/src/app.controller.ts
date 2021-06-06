@@ -21,6 +21,17 @@ export class AppController {
             );
     }
 
+    @Get('/content')
+    content() {
+        const count = 100000;
+
+        return range(0, count)
+            .pipe(
+                map(() => this.appService.getData()),
+                bufferCount(count)
+            );
+    }
+
     @Get('/application/name')
     name() {
         return {

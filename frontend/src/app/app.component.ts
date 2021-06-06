@@ -25,7 +25,10 @@ export class AppComponent implements OnInit, OnDestroy {
         switchMap(() => this.httpService.selectData()),
         takeUntil(this.onDestroy$)
       )
-      .subscribe(data => this.data = data)
+      .subscribe(data => {
+        this.data = data;
+        document.cookie = 'this-is-not-a-real-session-id=' + new Date().getTime();
+      })
 
     this.httpService.selectName()
       .pipe(takeUntil(this.onDestroy$))
@@ -41,4 +44,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.onDestroy$.complete();
   }
 
+  getContent() {
+    this.httpService.selectContent()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe(() => {
+        // do nothing
+      });
+  }
 }

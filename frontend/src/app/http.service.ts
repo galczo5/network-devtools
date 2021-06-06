@@ -25,4 +25,8 @@ export class HttpService {
     return this.httpClient.get('http://localhost:3000/application/version')
       .pipe(map((x: any) => x.version + ' @ ' + x.codename));
   }
+
+  selectContent(): Observable<Array<DTO>> {
+    return this.httpClient.get('http://localhost:3000/content') as Observable<Array<DTO>>;
+  }
 }
